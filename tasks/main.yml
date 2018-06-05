@@ -1,0 +1,7 @@
+---
+#  - include_tasks: keypairs.yml  # need to get keypairs working with clouds
+  - include_tasks: networks.yml
+  - include_tasks: routers.yml
+  - include_tasks: security_groups.yml
+  - include_tasks: instances.yml
+  - include_tasks: volumes.yml

@@ -1,0 +1,8 @@
+---
+- name: 'Create user keypairs'
+  os_keypair:
+    name: "{{ item.key }}"
+    state: present
+    public_key: "{{ item.value.key }}"
+  with_dict: "{{ users }}"
+  when: users is defined and item.value.key is defined

@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  author: 'David Wahlstrom'
+  description: 'Create and manage openstack resources using ansible'
+  license: BSD
+  min_ansible_version: '1.8'
+
+  platforms:
+  - name: Ubuntu
+    versions:
+    - trusty
+    - xenial
+
+  categories:
+  - system
+
+dependencies: []
+allow_duplicates: yes 

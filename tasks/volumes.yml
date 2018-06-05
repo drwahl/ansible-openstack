@@ -1,0 +1,46 @@
+---
+- name: 'Create volumes'
+  os_volume:
+    cloud: "{{ item.cloud | default('') }}"
+    state: "{{ item.1.state | default('present') }}"
+    size: "{{ item.1.size }}"
+    display_name: "{{ item.1.name }}"
+    display_description: "{{ item.1.description | default('') }}"
+  with_subelements:
+    - "{{ servers }}"
+    - volumes
+    - flags:
+      skip_missing: True
+  when: servers is defined
+
+- name: 'Unlock VM so volume can be attached'
+  os_server_actions:
+    cloud: "{{ item.cloud | default('') }}"
+    action: 'unlock'
+    server: "{{ item.server_name }}"
+  with_items: "{{ servers }}"
+  when: item.lock_state is defined and item.lock_state == 'lock' and item.volumes is defined
+  changed_when: False
+
+- name: 'Attach volumes'
+  os_server_volume:
+    cloud: "{{ item.cloud | default('') }}"
+    state: "{{ item.1.state | default('present') }}"
+    server: "{{ item.0.server_name }}"
+    volume: "{{ item.1.name }}"
+    device: "{{ item.1.device | default(None) }}"
+  with_subelements:
+    - "{{ servers }}"
+    - volumes
+    - flags:
+      skip_missing: True
+  when: servers is defined
+
+- name: 'Re-lock VM after volume attachment'
+  os_server_actions:
+    cloud: "{{ item.cloud | default('') }}"
+    action: 'lock'
+    server: "{{ item.server_name }}"
+  with_items: "{{ servers }}"
+  when: item.lock_state is defined and item.lock_state == 'lock' and item.volumes is defined
+  changed_when: False

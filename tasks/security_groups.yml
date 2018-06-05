@@ -1,0 +1,22 @@
+---
+- name: 'Create security group'
+  os_security_group:
+    cloud: "{{ item['cloud'] | default('') }}"
+    name: "{{ item['name'] }}"
+    description: "{{ item['description'] | default('') }}"
+  with_items: "{{ os_security_groups }}"
+  when: os_security_groups is defined
+
+- name: 'Add rule to security group'
+  os_security_group_rule:
+    cloud: "{{ item[0]['cloud'] | default('') }}"
+    security_group: "{{ item[0]['name'] }}"
+    protocol: "{{ item[1]['protocol'] | default('tcp') }}"
+    port_range_min: "{{ item[1]['port_range_min'] }}"
+    port_range_max: "{{ item[1]['port_range_max'] | default(item[1]['port_range_min']) }}"
+    remote_ip_prefix: "{{ item[1]['remote_ip_prefix'] }}"
+    ethertype: "{{ item[1]['ethertype'] | default('IPv4') }}"
+  with_subelements:
+    - "{{ os_security_groups }}"
+    - rule
+  when: os_security_groups is defined

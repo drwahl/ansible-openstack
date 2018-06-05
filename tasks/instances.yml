@@ -1,0 +1,37 @@
+---
+- name: 'Launch VMs'
+  os_server:
+    cloud: "{{ item['cloud'] | default('') }}"
+    boot_from_volume: "{{ item.volume_boot | default('false') }}"
+    volume_size: "{{ item.volume_size | default(0) }}"
+    state: "{{ item.state | default('present') }}"
+    name: "{{ item.server_name }}"
+    image: "{{ item.image }}"
+    key_name: "{{ item.keyname }}"
+    timeout: 200
+    flavor: "{{ item.flavor }}"
+    network: "{{ item.network }}"
+    auto_ip: "{{ item.auto_ip }}"
+    security_groups: "{{ item.security_groups }}"
+    meta: "{{ item.meta | default('null') }}"
+    userdata: "{{ item.userdata | default('null') }}"
+  with_items: "{{ servers }}"
+  register: "os_hosts"
+  when: servers is defined
+
+- name: 'Set lock state'
+  os_server_actions:
+    cloud: "{{ item['cloud'] | default('') }}"
+    action: "{{ item.lock_state }}"
+    server: "{{ item.server_name }}"
+  with_items: "{{ servers }}"
+  when: item.lock_state is defined and ( item.lock_state == 'lock' or item.lock_state == 'unlock' )
+  changed_when: False  # openstack doesn't track lock state
+
+- name: add hosts to inventory
+  add_host:
+    name: "{{ item['server']['name'] }}"
+    groups: "{{ item['server']['metadata']['groups'] }},'all'"
+    ansible_host: "{{ item.server.accessIPv4 }}"
+  with_items: "{{ os_hosts.results }}"
+  changed_when: False  # will always be changed, as the inventory always gets reloaded
