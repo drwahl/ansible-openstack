@@ -1,6 +1,6 @@
 ---
 - name: 'Create and delete projects'
-  os_user_role:
+  os_project:
     cloud: "{{ item['cloud'] | default(omit) }}"
     domain_id: "{{ item['domain'] | default(omit) }}"
     enabled: "{{ item['enabled'] | default('yes') }}"

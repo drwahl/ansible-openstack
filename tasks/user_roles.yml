@@ -1,6 +1,6 @@
 ---
 - name: 'Assign user roles'
-  os_user_rol:
+  os_user_role:
     cloud: "{{ item['cloud'] | default('') }}"
     domain: "{{ item['domain'] | default(omit) }}"
     group: "{{ item['group'] | default(omit) }}"
