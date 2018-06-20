@@ -2,7 +2,8 @@
 - name: 'Create and delete projects'
   os_project:
     cloud: "{{ item['cloud'] | default(omit) }}"
-    domain_id: "{{ item['domain'] | default(omit) }}"
+    description: "{{ item['description'] | default(omit) }}"
+    domain_id: "{{ item['domain'] | default('default') }}"
     enabled: "{{ item['enabled'] | default('yes') }}"
     name: "{{ item['name'] }}"
     region_name: "{{ item['region_name'] | default(omit) }}"
