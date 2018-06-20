@@ -4,7 +4,7 @@
     cloud: "{{ item['cloud'] | default(omit) }}"
     domain_id: "{{ item['domain'] | default(omit) }}"
     enabled: "{{ item['enabled'] | default('yes') }}"
-    name: "{{ item['project_name'] }}"
+    name: "{{ item['name'] }}"
     region_name: "{{ item['region_name'] | default(omit) }}"
     state: "{{ item['state'] | default('present') }}"
   with_items: "{{ os_projects }}"
