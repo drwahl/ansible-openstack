@@ -1,5 +1,4 @@
-Setting up the openstack environment for our services.  Things like creating
-security groups, networks, etc.
+Configure the openstack environment.  Things like creating security groups, networks, etc.
 
 To deploy an instance, you can add the following to your group_vars/all.yaml:
 
