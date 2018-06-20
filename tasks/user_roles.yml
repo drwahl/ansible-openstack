@@ -7,7 +7,7 @@
     project: "{{ item['project'] | default(omit) }}"
     region_name: "{{ item['region_name'] | default(omit) }}"
     role: "{{ item['role'] }}"
-    state: "{{ item['state'] }}"
+    state: "{{ item['state'] | default('present') }}"
     user: "{{ item['user'] | default(omit) }}"
   with_items: "{{ os_user_roles }}"
   when: os_user_roles is defined
