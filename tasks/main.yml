@@ -1,5 +1,13 @@
 ---
 #  - include_tasks: keypairs.yml  # need to get keypairs working with clouds
+
+  # tasks that explicitly require admin privs
+  - include_tasks: projects.yml
+    when: os_admin is defined
+  - include_tasks: user_roles.yml
+    when: os_admin is defined
+
+  # tasks that may work without admin privs
   - include_tasks: networks.yml
   - include_tasks: routers.yml
   - include_tasks: security_groups.yml

@@ -1,0 +1,11 @@
+---
+- name: 'Create and delete projects'
+  os_user_rol:
+    cloud: "{{ item['cloud'] | default(omit) }}"
+    domain_id: "{{ item['domain'] | default(omit) }}"
+    enabled: "{{ item['enabled'] | default('yes') }}"
+    name: "{{ item['project_name'] }}"
+    region_name: "{{ item['region_name'] | default(omit) }}"
+    state: "{{ item['state'] | default('present') }}"
+  with_items: "{{ os_projects }}"
+  when: os_projects is defined

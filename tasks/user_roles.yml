@@ -1,0 +1,13 @@
+---
+- name: 'Assign user roles'
+  os_user_rol:
+    cloud: "{{ item['cloud'] | default('') }}"
+    domain: "{{ item['domain'] | default(omit) }}"
+    group: "{{ item['group'] | default(omit) }}"
+    project: "{{ item['project'] | default(omit) }}"
+    region_name: "{{ item['region_name'] | default(omit) }}"
+    role: "{{ item['role'] }}"
+    state: "{{ item['state'] }}"
+    user: "{{ item['user'] | default(omit) }}"
+  with_items: "{{ os_user_roles }}"
+  when: os_user_roles is defined
