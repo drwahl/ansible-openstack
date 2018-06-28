@@ -13,6 +13,7 @@
     network: "{{ item.network }}"
     auto_ip: "{{ item.auto_ip }}"
     security_groups: "{{ item.security_groups }}"
+    scheduler_hints: "{{ item.scheduler_hints | default(omit) }}"
     meta: "{{ item.meta | default('null') }}"
     userdata: "{{ item.userdata | default('null') }}"
   with_items: "{{ servers }}"
