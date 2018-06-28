@@ -3,7 +3,7 @@ galaxy_info:
   author: 'David Wahlstrom'
   description: 'Create and manage openstack resources using ansible'
   license: BSD
-  min_ansible_version: '1.8'
+  min_ansible_version: '2.1'
 
   platforms:
   - name: Ubuntu
