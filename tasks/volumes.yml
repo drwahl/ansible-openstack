@@ -19,7 +19,7 @@
     action: 'unlock'
     server: "{{ item.server_name }}"
   with_items: "{{ servers }}"
-  when: item.lock_state is defined and item.lock_state == 'lock' and item.volumes is defined
+  when: servers is defined and item.lock_state is defined and item.lock_state == 'lock' and item.volumes is defined
   changed_when: False
 
 - name: 'Attach volumes'
@@ -42,5 +42,5 @@
     action: 'lock'
     server: "{{ item.server_name }}"
   with_items: "{{ servers }}"
-  when: item.lock_state is defined and item.lock_state == 'lock' and item.volumes is defined
+  when: servers is defined and item.lock_state is defined and item.lock_state == 'lock' and item.volumes is defined
   changed_when: False
