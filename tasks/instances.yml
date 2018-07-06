@@ -26,7 +26,7 @@
     action: "{{ item.lock_state }}"
     server: "{{ item.server_name }}"
   with_items: "{{ servers }}"
-  when: item.lock_state is defined and ( item.lock_state == 'lock' or item.lock_state == 'unlock' )
+  when: servers is defined and item.lock_state is defined and ( item.lock_state == 'lock' or item.lock_state == 'unlock' )
   changed_when: False  # openstack doesn't track lock state
 
 - name: add hosts to inventory
