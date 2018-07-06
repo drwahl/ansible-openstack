@@ -35,4 +35,5 @@
     groups: "{{ item['server']['metadata']['groups'] }},'all'"
     ansible_host: "{{ item.server.accessIPv4 }}"
   with_items: "{{ os_hosts.results }}"
+  when: servers is defined
   changed_when: False  # will always be changed, as the inventory always gets reloaded
