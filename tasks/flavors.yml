@@ -1,0 +1,17 @@
+---
+- name: 'Create and delete flavors'
+  os_nova_flavors:
+    cloud: "{{ item['cloud'] | default(omit) }}"
+    disk: "{{ item['disk'] | default(omit) }}"
+    ephemeral: "{{ item['ephemeral'] | default(omit) }}"
+    extra_specs: "{{ item['extra_specs'] | default(omit) }}"
+    flavorid: "{{ item['flavorid'] | default(omit) }}"
+    is_public: "{{ item['is_public'] | default(True) }}"
+    name: "{{ item['name'] }}"
+    ram: "{{ item['ram'] | default(omit) }}"
+    region_name: "{{ item['region_name'] | default(omit) }}"
+    rxtx_factor: "{{ item['rxtx_factor'] | default(omit) }}" 
+    state: "{{ item['state'] | default('present') }}"
+    vcpus: "{{ item['vcpus'] | default(omit) }}"
+  with_items: "{{ os_flavors }}"
+  when: os_flavors is defined

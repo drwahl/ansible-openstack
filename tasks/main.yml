@@ -6,6 +6,8 @@
     when: os_admin is defined
   - include_tasks: user_roles.yml
     when: os_admin is defined
+  - include_tasks: flavors.yml
+    when: os_admin is defined
 
   # tasks that may work without admin privs
   - include_tasks: networks.yml
