@@ -32,7 +32,7 @@
 - name: add hosts to inventory
   add_host:
     name: "{{ item['server']['name'] }}"
-    groups: "{{ item['server']['metadata']['groups'] | default(omit) }},'all'"
+    groups: "{{ item['server']['metadata']['groups'] | default(omit) }},all"
     ansible_host: "{{ item.server.accessIPv4 }}"
   with_items: "{{ os_hosts.results }}"
   when: servers is defined
