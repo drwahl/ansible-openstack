@@ -2,6 +2,7 @@
 - name: 'Launch VMs'
   os_server:
     cloud: "{{ item['cloud'] | default('') }}"
+    availability_zone: "{{ item.availability_zone | default(omit) }}"
     boot_from_volume: "{{ item.volume_boot | default('false') }}"
     volume_size: "{{ item.volume_size | default(0) }}"
     state: "{{ item.state | default('present') }}"
