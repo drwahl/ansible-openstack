@@ -1,6 +1,6 @@
 ---
 - name: 'Launch VMs'
-  os_server:
+  openstack.cloud.server:
     cloud: "{{ item['cloud'] | default('') }}"
     availability_zone: "{{ item.availability_zone | default(omit) }}"
     boot_from_volume: "{{ item.volume_boot | default('false') }}"
@@ -22,7 +22,7 @@
   when: servers is defined
 
 - name: 'Set lock state'
-  os_server_actions:
+  openstack.cloud.server_action:
     cloud: "{{ item['cloud'] | default('') }}"
     action: "{{ item.lock_state }}"
     server: "{{ item.server_name }}"

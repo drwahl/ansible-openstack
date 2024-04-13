@@ -1,6 +1,6 @@
 ---
 - name: 'Create networks'
-  os_network:
+  openstack.cloud.network:
     admin_state_up: "{{ item['admin_state_up'] | default('yes') }}"
     external: "{{ item['external'] | default('no') }}"
     project: "{{ item['project'] | default(omit) }}"
@@ -15,7 +15,7 @@
   when: os_networks is defined
 
 - name: 'Create subnets'
-  os_subnet:
+  openstack.cloud.subnet:
     allocation_pool_end: "{{ item[1]['allocation_pool_end'] | default(omit) }}"
     allocation_pool_start: "{{ item[1]['allocation_pool_start'] | default(omit) }}"
     cidr: "{{ item[1]['cidr'] }}"

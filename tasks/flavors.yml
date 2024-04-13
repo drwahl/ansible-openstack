@@ -1,6 +1,6 @@
 ---
 - name: 'Create and delete flavors'
-  os_nova_flavor:
+  openstack.cloud.compute_flavor:
     cloud: "{{ item['cloud'] | default(omit) }}"
     disk: "{{ item['disk'] | default(omit) }}"
     ephemeral: "{{ item['ephemeral'] | default(omit) }}"

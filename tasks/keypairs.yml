@@ -1,6 +1,6 @@
 ---
 - name: 'Create user keypairs'
-  os_keypair:
+  openstack.cloud.keypair:
     name: "{{ item.key }}"
     state: present
     public_key: "{{ item.value.key }}"

@@ -1,5 +1,5 @@
 - name: 'Create routers and attach networks'
-  os_router:
+  openstack.cloud.router:
     cloud: "{{ item.cloud | default('') }}"
     state: "{{ item['state'] | default('present') }}"
     name: "{{ item['name'] }}"

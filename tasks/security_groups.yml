@@ -1,6 +1,6 @@
 ---
 - name: 'Create security group'
-  os_security_group:
+  openstack.cloud.security_group:
     cloud: "{{ item['cloud'] | default('') }}"
     name: "{{ item['name'] }}"
     description: "{{ item['description'] | default('') }}"
@@ -8,7 +8,7 @@
   when: os_security_groups is defined
 
 - name: 'Add rule to security group'
-  os_security_group_rule:
+  openstack.cloud.security_group_rule:
     cloud: "{{ item[0]['cloud'] | default('') }}"
     security_group: "{{ item[0]['name'] }}"
     protocol: "{{ item[1]['protocol'] | default('tcp') | regex_replace('^Any$', '') | default(omit, true) }}"

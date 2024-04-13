@@ -1,6 +1,6 @@
 ---
 - name: 'Create and delete projects'
-  os_project:
+  openstack.cloud.project:
     cloud: "{{ item['cloud'] | default(omit) }}"
     description: "{{ item['description'] | default(omit) }}"
     domain_id: "{{ item['domain'] | default('default') }}"

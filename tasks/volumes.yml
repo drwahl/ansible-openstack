@@ -1,6 +1,6 @@
 ---
 - name: 'Create volumes'
-  os_volume:
+  openstack.cloud.volume:
     cloud: "{{ item.cloud | default('') }}"
     state: "{{ item.1.state | default('present') }}"
     size: "{{ item.1.size }}"
@@ -14,7 +14,7 @@
   when: servers is defined
 
 - name: 'Unlock VM so volume can be attached'
-  os_server_actions:
+  openstack.cloud.server_action:
     cloud: "{{ item.cloud | default('') }}"
     action: 'unlock'
     server: "{{ item.server_name }}"
@@ -23,7 +23,7 @@
   changed_when: False
 
 - name: 'Attach volumes'
-  os_server_volume:
+  openstack.cloud.server_volume:
     cloud: "{{ item.cloud | default('') }}"
     state: "{{ item.1.state | default('present') }}"
     server: "{{ item.0.server_name }}"
@@ -37,7 +37,7 @@
   when: servers is defined
 
 - name: 'Re-lock VM after volume attachment'
-  os_server_actions:
+  openstack.cloud.server_action:
     cloud: "{{ item.cloud | default('') }}"
     action: 'lock'
     server: "{{ item.server_name }}"
